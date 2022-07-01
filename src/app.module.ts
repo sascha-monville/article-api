@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ArticlesModule } from './articles/articles.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Article } from './articles/entities/Article.entity';
 
 @Module({
   imports: [ArticlesModule, TypeOrmModule.forRoot({
@@ -12,11 +11,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     username: 'root',
     password: 'example',
     database: 'articles',
-    entities: [],
+    entities: [Article],
     synchronize: true,
   }),],
-  controllers: [AppController],
-  providers: [AppService],
 })
 
 export class AppModule {}
