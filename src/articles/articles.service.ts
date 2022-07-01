@@ -6,8 +6,19 @@ import { HttpService } from '@nestjs/axios';
 
 @Injectable()
 export class ArticlesService {
+
+  inputValidation(input: CreateArticleDto): void {
+    // Todo input validation with NestJs ValidationPipe via decorator
+    if(!input.author
+      ||!input.name
+      ) {
+        throw new BadRequestException("Invalid input")
+      }
+  }
+
   async create(createArticleDto: CreateArticleDto): Promise<Article> {
     try {
+      this.inputValidation(createArticleDto);
       const article: Article = Article.create();
       const { name, author, text, creationDate, publicationDate } = createArticleDto;
       article.name = name;
